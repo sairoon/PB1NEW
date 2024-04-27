@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/CDNSFree2/Plyr/plyr.css" />
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+   <!-- Instructions Start  -->
+   <div class="col-md-12" >
+    <div class="col-md-4"></div>
+    <div class="col-md-4 instruct-body">
+      <div class="instruct-header"><span style="color: #d8534e;">Brain Game</span> <span>(Instructions)</span>
+        <div class="player">
+          <audio class="player-line" controls id="player">
+            <source src="01.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/gh/CDNSFree2/Plyr/plyr.min.js"></script>
+<!-- Instructions End  -->
+
+  <div class="col-md-12" style="width:100%;">
+    <div style="text-align:center;">
+      <img src="img_quiz.png" style="width:100%; border-radius:10px;" alt="image">  <!--selection image-->
+    </div>
+    <!--option area start  -->
+    <div style="text-align:center; border-radius:10px;" class="word-list">
+      <div class="col-md-4">
+        <button style="color:#D198C5FF ;" class="btn btn-default btn-xl">৩</button>
+        <button style="color:rgb(89, 13, 129); " class="btn btn-default btn-xl" data-correctness="correct"> আ</button>
+        <button  style="color:rgb(0, 69, 7) ;" class="btn btn-default btn-xl">z</button>
+        <button  style="color:rgb(45, 0, 69) ; "class="btn btn-default btn-xl">৬</h1></button>
+        <button  style="color:rgb(48, 200, 230) ;" class="btn btn-default btn-xl" data-correctness="correct">ঘ</button>
+      </div>
+      <div class="col-md-4">
+        <button  style="color:rgb(255, 104, 3) ;" class="btn btn-default btn-xl">9</button>
+        <button  style="color:rgb(110, 28, 11) ;" class="btn btn-default btn-xl">f</h1></button>
+        <button  style="color:rgb(255, 0, 0) ;" class="btn btn-default btn-xl" data-correctness="correct">C</button>
+        <button  style="color:rgb(77, 0, 118) ;" class="btn btn-default btn-xl">ও</button>
+        <button  style="color:rgb(36, 134, 196) ;" class="btn btn-default btn-xl">অ</button>
+        <button  style="color:rgb(32, 69, 0) ;" class="btn btn-default btn-xl" data-correctness="correct">২</button>
+      </div>
+      <div class="col-md-4">
+        <button  style="color:rgb(32, 69, 0) ;" class="btn btn-default btn-xl">ক</button>
+        <button  style="color:rgb(0, 69, 66) ;" class="btn btn-default btn-xl" data-correctness="correct">g</button>
+        <button  style="color:rgb(0, 137, 156) ;" class="btn btn-default btn-xl">e</button>
+        <button  style="color:rgb(69, 0, 62) ;" class="btn btn-default btn-xl">ড</button>
+        <button  style="color:rgb(69, 66, 0) ;" class="btn btn-default btn-xl" data-correctness="correct"> 3</button>
+      </div>
+    </div>
+    <!--option area end  -->
+    <div style="text-align:center;">
+      <button type="button" class="btn btn-verify" id="button-submit" data-toggle="modal" data-target="#myModal">Verify Answer</button>
+    </div>
+    <!-- result area start  -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog"> 
+        <div id="success-feedback" class="alert alert-success" style="display:none">
+          <p style="text-align:center;"><img src="win.png"></p>
+          <p style="text-align:center;" class="lead">
+            <i class= "fa fa-check"></i> Correct, you've got it right !
+          </p>
+          <br>
+          <a class="center-block" style="text-align:center;" href="index.html"><button type="button" class="btn btn-primary">Ok Thanks</button></a>
+        </div>
+        <div id="error-feedback" class="alert alert-success" style="display:none">
+          <p style="text-align:center;" class="lead" >
+            <i class= "fa fa-times"></i> Not quite !
+          </p>
+          <p style="text-align:center;"><img src="sad.png"></p>
+          <p style="text-align:center;">
+            The Correct Options are <b>আ</b>, <b>ঘ</b>, <b>C</b>, <b>২</b>, <b>g</b> <b>এবং<b/> <b>3</b>
+            <br/>
+            If you have trouble remembering them, See the image carefully and try again.<br>Good Luck
+          </p>
+          <br>
+          <a class="center-block" style="text-align:center;" href="index.html"><button type="button" class="btn btn-primary">try Again</button></a>
+        </div>
+      </div>
+    </div>
+    <!-- result area end  -->
+  </div>
+
+<!-- script area start  -->
+<script type="text/javascript">
+$(function() {
+
+$('.word-list button').click(function() {
+  $(this).toggleClass('btn-info');
+})
+
+$('#button-submit').click(function() {
+  var incorrectCount = 0;
+  incorrectCount += $('.word-list button[data-correctness="correct"]:not(.btn-info)').addClass('incorrect').length;
+  incorrectCount += $('.word-list button.btn-info:not([data-correctness="correct"])').addClass('crossed').length;
+
+  if (incorrectCount > 0) {
+    $("#error-feedback").show();
+  } else {
+    $("#success-feedback").show();
+  }
+
+
+  $('#button-submit').hide();
+
+  $('.word-list button').addClass('inactive');
+
+})
+
+})
+</script>
+</body>
+</html>
